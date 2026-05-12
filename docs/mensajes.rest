@@ -1,0 +1,57 @@
+// enviar mensaje texto
+POST http://127.0.0.1:3000/api/enviar-mensaje
+Content-Type: application/json
+
+{
+    "numero": "59173277937",
+    "mensaje": {
+        "type": "text",
+        "body": "Hola desde Node"
+    }
+}
+
+### imagen
+
+POST http://127.0.0.1:3000/api/enviar-mensaje
+Content-Type: application/json
+
+{
+    "numero": "59173277937",
+    "mensaje": {
+        "type": "image",
+        "link": "https://blumbitvirtual.edtics.com/pluginfile.php/5663/course/overviewfiles/Post%20N8N%20%281%29.png",
+        "caption": "Hola, le envio la imagen del *curso n8n*"
+    }
+}
+
+### ubicacion
+POST http://127.0.0.1:3000/api/enviar-mensaje
+Content-Type: application/json
+
+{
+    "numero": "59173277937",
+    "mensaje": {
+        "type": "location",
+        "latitude": "-16.5",
+        "longitude": "-68.1333",
+        "name": "Av. Central ABC, Entre 1 y 2",
+        "address": "La Paz, Bolivia"
+    }
+}
+
+### buttons
+POST http://127.0.0.1:3000/api/enviar-mensaje
+Content-Type: application/json
+
+{
+    "numero": "59173277937",
+    "mensaje": {
+        "type": "buttons",
+       "body": "Qué rol tienes en desarrollo de Software?\n\nElige una opción:",
+       "buttons": [
+        {"type": "reply", "reply": {"id": 1, "title": "Frontend"} },
+        {"type": "reply", "reply": {"id": 2, "title": "Backend"} },
+        {"type": "reply", "reply": {"id": 3, "title": "Fullstack"} }
+       ]
+    }
+}
