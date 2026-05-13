@@ -55,3 +55,49 @@ Content-Type: application/json
        ]
     }
 }
+
+### lista
+POST http://127.0.0.1:3000/api/enviar-mensaje
+Content-Type: application/json
+
+{
+    "numero": "59173277937",
+    "mensaje": {
+        "type": "listbuttons",
+       "body": "Qué rol tienes en desarrollo de Software?\n\nElige una opción:",
+       "header": "cabecera",
+        "footer": "pie",
+        "sections": [
+        {
+          "title": "CURSOS IA",
+          "rows": [
+            {
+              "id": "id1",
+              "title": "Curso 1",
+              "description": "Curso descripción 1"
+            },
+            {
+              "id": "id2",
+              "title": "Curso 2",
+              "description": "Curso descripción 2"
+            }
+          ]
+        },
+        {
+          "title": "CURSOS DEV",
+          "rows": [
+            {
+              "id": "id3",
+              "title": "Curso dev 1",
+              "description": "Curso descripción 1"
+            },
+            {
+              "id": "id4",
+              "title": "Curso dev 2",
+              "description": "Curso descripción 2"
+            }
+          ]
+        }
+      ]
+    }
+}
