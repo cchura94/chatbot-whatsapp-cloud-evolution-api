@@ -1,5 +1,8 @@
 const whatsappService = require("./../services/whatsapp.service");
+const aiService = require("./../services/aiService");
 
+
+const historialIA = [];
 async function enviarMensaje(req, res){
     try {
         const { numero, mensaje } = req.body;
@@ -142,14 +145,54 @@ async function procesarMensaje(numero, mensajeUsuario) {
 
     } else {
 
-        await whatsappService.enviarMensajeWhatsapp(numero, {
-            type: "text",
-            body:
-                "❌ Opción inválida.\n\n" +
-                "Selecciona una opción válida."
-        });
+        // IA
 
-        await enviarMenu(numero, menuActual);
+
+        // 'necesito que determnines la intencion del mensaje de mi cliente, mis intenciones son: ["información", "precios", "servicios", "ubicacion", "horarios"]. como respuesta solo responde la intencion del cliente y no se entiende entonces responde "NOSE".'
+        const resp = await aiService.generarRespuestaAI(mensajeUsuario, historialIA, "Actual como parte del equipo de ventas para ofrecer capacitaciones de postgrado oferta nustros diplomados. responde en no más de 30 palabras e ignora preguntas que no sea de nuestros servicios" );
+            console.log(resp.respuesta)
+
+            historialIA.push(...resp.nuevoHistorial.splice(-10));
+
+            console.log("*****: HISORIAL:  ",historialIA);
+            await whatsappService.enviarMensajeWhatsapp(numero, {
+                    type: "text",
+                    body: resp.respuesta
+            });
+            /*
+        switch (resp.respuesta) {
+            case "información":
+
+                await whatsappService.enviarMensajeWhatsapp(numero, {
+                    type: "text",
+                    body: "Nosotros somos una empresa y ofrecemos cursos, le envío el catalogo "
+                });
+
+                await whatsappService.enviarMensajeWhatsapp(numero, {
+                        type: "image",
+                        "link": "https://blumbitvirtual.edtics.com/pluginfile.php/5663/course/overviewfiles/Post%20N8N%20%281%29.png",
+                        "caption": "Hola, le envio la imagen del *curso n8n*"    
+                });
+                break;
+            case "precios":
+                await whatsappService.enviarMensajeWhatsapp(numero, {
+                    type: "text",
+                    body: "Los precios varian...."
+                });
+                
+                break;
+        
+            default:
+                await whatsappService.enviarMensajeWhatsapp(numero, {
+                    type: "text",
+                    body: "Hola, necesitas alguna ayuda? escribe su solicitud"
+                });
+                break;
+        }
+                */
+
+
+        // await enviarMenu(numero, menuActual);
     }
 }
 
